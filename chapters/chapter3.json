@@ -1,0 +1,97 @@
+{
+  "chapter": 3,
+  "title": "Escape or Die",
+  "scenes": [
+    {
+      "id": 33,
+      "player": 1,
+      "description": "You wait patiently. Minutes tick by. One of the captors walks away to the bathroom. Another gets distracted by their phone. NOW'S YOUR CHANCE. The third guard yawns. You could make a move for the crowbar or signal your partner to create a distraction.",
+      "choices": [
+        { "index": 1, "text": "Grab the crowbar and attack", "effects": { "nextSceneId": 100, "nextChapter": 3, "status": "fighting_back" } },
+        { "index": 2, "text": "Signal partner to distract them", "effects": { "nextSceneId": 101, "nextChapter": 3, "status": "coordinated_escape" } }
+      ]
+    },
+    {
+      "id": 34,
+      "player": 1,
+      "description": "You work the ropes slowly, carefully. The rough fibers burn your skin but you feel them loosening. One of the captors glances your way. You freeze. He looks away. You continue. Almost... there! The rope falls free. But now what? Three armed men between you and the door. Your partner is still tied up.",
+      "choices": [
+        { "index": 1, "text": "Rush to free your partner first", "effects": { "nextSceneId": 102, "nextChapter": 3, "status": "risky_rescue" } },
+        { "index": 2, "text": "Look for a weapon or tool", "effects": { "nextSceneId": 103, "nextChapter": 3, "status": "armed_escape" } }
+      ]
+    },
+    {
+      "id": 66,
+      "player": 2,
+      "description": "You make eye contact with your partner. Their eyes widen. Recognition. Relief. Terror. You mouth the words: 'Are you okay?' They nod slightly. One of the captors notices. 'No talking!' he barks. But you've already communicated. You're both alive. You both want out. Now you need a plan.",
+      "choices": [
+        { "index": 1, "text": "Wait for the right moment together", "effects": { "nextSceneId": 100, "nextChapter": 3, "status": "patience" } },
+        { "index": 2, "text": "Provoke them to make a mistake", "effects": { "nextSceneId": 104, "nextChapter": 3, "status": "provocative" } }
+      ]
+    },
+    {
+      "id": 67,
+      "player": 2,
+      "description": "You study the captors carefully. The leader is confident, maybe overconfident. The one by the laptop is nervous, keeps checking his watch. The guard is big but slow. Weaknesses. You notice the side door is only secured with a padlock, not bolted. If you could get to it...",
+      "choices": [
+        { "index": 1, "text": "Target the nervous one first", "effects": { "nextSceneId": 105, "nextChapter": 3, "status": "targeting_weakness" } },
+        { "index": 2, "text": "Focus on reaching that door", "effects": { "nextSceneId": 106, "nextChapter": 3, "status": "door_focus" } }
+      ]
+    },
+    {
+      "id": 100,
+      "player": 1,
+      "description": "ENDING: ESCAPED TOGETHER! In a coordinated burst of action, you and your partner break free. You grab the crowbar, your partner kicks over the laptop. Chaos erupts. You fight your way to the exit. Sirens wail outside — someone called the cops! You burst into the night, bruised and terrified, but ALIVE. You survived the Vanishing Point.",
+      "choices": [],
+      "endings": ["escaped_together"]
+    },
+    {
+      "id": 101,
+      "player": 1,
+      "description": "ENDING: RESCUED! Your partner creates a distraction. You signal toward the window. CRASH! Police storm in from all sides. 'GET DOWN! HANDS UP!' SWAT teams flood the warehouse. You and your partner are pulled to safety. Ambulances. Reporters. You're heroes. You're survivors. The nightmare is over.",
+      "choices": [],
+      "endings": ["rescued_by_police"]
+    },
+    {
+      "id": 102,
+      "player": 1,
+      "description": "ENDING: CAPTURED. You rush to free your partner but the captors are too fast. They overpower you both. The warehouse door slams shut. Darkness. Your partner's hand finds yours. 'We'll get out,' they whisper. But the Vanishing Point has been reached. Some disappearances are permanent.",
+      "choices": [],
+      "endings": ["captured_forever"]
+    },
+    {
+      "id": 103,
+      "player": 2,
+      "description": "ENDING: ONE ESCAPED. You grab a pipe and fight your way out. Your partner shouts 'GO!' You hesitate. They shout again. 'RUN!' You do. You escape into the night. Police find their jacket by the river days later. No body. No trace. Just questions. Did they make it? You'll never know. You crossed the Vanishing Point alone.",
+      "choices": [],
+      "endings": ["one_escaped_one_lost"]
+    },
+    {
+      "id": 104,
+      "player": 2,
+      "description": "ENDING: DEFIANT END. You provoke them. 'You'll never get away with this!' The leader approaches, rage in his eyes. But then — sirens. Lots of sirens. Red and blue lights flood through the windows. Police! The captors panic. In the chaos, you and your partner are pulled to safety. Battered, but free.",
+      "choices": [],
+      "endings": ["rescued_by_police"]
+    },
+    {
+      "id": 105,
+      "player": 1,
+      "description": "ENDING: CLEVER ESCAPE. You target the nervous captor. 'Hey!' you shout. He jumps. Drops his phone. In that split second, your partner kicks a chair into the big guard. You both run. The side door. Your hands claw at the padlock. It BREAKS. You're out! Rain. Freedom. Survival. You vanished from their grasp.",
+      "choices": [],
+      "endings": ["escaped_together"]
+    },
+    {
+      "id": 106,
+      "player": 2,
+      "description": "ENDING: DOOR TO FREEDOM. You focus everything on that door. Waiting. Watching. When one captor goes outside to smoke, you make your move. Your partner creates a distraction. You reach the door. Pick the lock with a bent nail. CLICK. It opens. You both sprint into the night. Behind you, shouts. But you're already gone. Vanished into freedom.",
+      "choices": [],
+      "endings": ["escaped_together"]
+    }
+  ],
+  "endings": [
+    { "id": 100, "name": "escaped_together", "text": "Both players escaped alive!" },
+    { "id": 101, "name": "rescued_by_police", "text": "Police rescued both players!" },
+    { "id": 102, "name": "captured_forever", "text": "Both players were captured..." },
+    { "id": 103, "name": "one_escaped_one_lost", "text": "One escaped, one vanished..." }
+  ]
+}
