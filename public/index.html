@@ -2,108 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Vanishing Point - 2 Player Adventure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanishing Point</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- LOBBY SCREEN -->
   <div id="lobby-screen">
-    <div class="lobby-container">
-      <h1 class="game-title">⚫ VANISHING POINT</h1>
-      <p class="game-subtitle">A Two-Player Cinematic Adventure</p>
-      <p class="game-desc">Every choice has consequences. Your decisions affect your partner.</p>
+    <div class="container">
+      <h1 class="title">⚫ VANISHING POINT</h1>
+      <p class="subtitle">A Two-Player Cinematic Adventure</p>
       
-      <div class="player-setup">
-        <div class="player-card">
-          <div class="player-header">
-            <span class="player-icon">👤</span>
-            <span>Player 1</span>
-          </div>
-          <input type="text" id="player1-name" placeholder="Enter your name" class="name-input">
-          <div class="player-status" id="player1-status">Waiting...</div>
-        </div>
-
-        <div class="vs-divider">VS</div>
-
-        <div class="player-card">
-          <div class="player-header">
-            <span class="player-icon">👤</span>
-            <span>Player 2</span>
-          </div>
-          <input type="text" id="player2-name" placeholder="Enter your name" class="name-input">
-          <div class="player-status" id="player2-status">Waiting...</div>
-        </div>
+      <div class="lobby-card">
+        <h2>Join Game</h2>
+        <input type="text" id="player-name" placeholder="Enter your name" class="input-name">
+        <button id="join-btn" class="btn-primary">Join Room</button>
       </div>
-
-      <button id="start-game-btn" class="btn-start" disabled>Start Game</button>
-      <div id="lobby-error" class="error-msg"></div>
       
-      <div class="game-info">
-        <p>🎭 <strong>2 Players Required</strong></p>
-        <p>📖 Choice-driven narrative</p>
-        <p>⚡ Your choices affect each other</p>
-        <p>🎬 Multiple endings</p>
+      <div id="room-status" class="room-status hidden">
+        <h3>Room: <span id="room-code">default</span></h3>
+        <div class="players-grid">
+          <div class="player-slot">
+            <div class="slot-icon">👤</div>
+            <div class="slot-label">Player 1</div>
+            <div id="player1-name" class="slot-name">Waiting...</div>
+            <div id="player1-status" class="slot-status"></div>
+          </div>
+          <div class="vs">VS</div>
+          <div class="player-slot">
+            <div class="slot-icon">👤</div>
+            <div class="slot-label">Player 2</div>
+            <div id="player2-name" class="slot-name">Waiting...</div>
+            <div id="player2-status" class="slot-status"></div>
+          </div>
+        </div>
+        <button id="ready-btn" class="btn-ready" disabled>Ready</button>
+        <button id="start-btn" class="btn-start hidden">Start Game</button>
       </div>
+      
+      <div id="error-msg" class="error-msg"></div>
     </div>
   </div>
 
   <!-- GAME SCREEN -->
   <div id="game-screen" class="hidden">
+    <div class="game-header">
+      <div class="header-left">
+        <span class="player-badge" id="player-badge">Player 1</span>
+        <span id="your-name"></span>
+      </div>
+      <div class="header-center">
+        <span id="scene-counter">Scene 1</span>
+      </div>
+      <div class="header-right">
+        <span id="status-badge">Active</span>
+      </div>
+    </div>
     
-    <!-- Player Info Bar -->
-    <div class="player-info-bar">
-      <div class="info-left">
-        <span class="player-badge" id="your-player-badge">Player 1</span>
-        <span class="player-name-display" id="your-name-display"></span>
+    <div class="game-container">
+      <div class="scene-box">
+        <div id="scene-text" class="scene-text"></div>
       </div>
-      <div class="info-center">
-        <span class="story-progress" id="scene-counter">Scene 1</span>
-      </div>
-      <div class="info-right">
-        <span class="status-indicator" id="status-display"></span>
+      
+      <div id="choices-box" class="choices-box">
+        <!-- Choices appear here -->
       </div>
     </div>
-
-    <!-- Story Display -->
-    <div class="story-container">
-      <div class="scene-content">
-        <div class="scene-description" id="scene-description">
-          <!-- Story text appears here -->
-        </div>
-      </div>
-
-      <!-- Choice Buttons -->
-      <div class="choices-container" id="choices-container">
-        <button class="choice-btn" id="choice-1">
-          <span class="choice-number">1</span>
-          <span class="choice-text" id="choice-1-text"></span>
-        </button>
-        <button class="choice-btn" id="choice-2">
-          <span class="choice-number">2</span>
-          <span class="choice-text" id="choice-2-text"></span>
-        </button>
+    
+    <div class="activity-panel">
+      <div class="activity-header">Partner Activity</div>
+      <div id="activity-feed" class="activity-feed">
+        <div class="activity-item">Waiting for partner...</div>
       </div>
     </div>
-
-    <!-- Partner Activity Feed -->
-    <div class="activity-feed">
-      <div class="feed-header">Partner Activity</div>
-      <div class="feed-content" id="activity-feed">
-        <div class="activity-item">Waiting for partner's choice...</div>
-      </div>
-    </div>
-
   </div>
 
   <!-- ENDING SCREEN -->
   <div id="ending-screen" class="hidden">
-    <div class="ending-container">
-      <h1 class="ending-title" id="ending-title">THE END</h1>
-      <div class="ending-description" id="ending-description"></div>
-      <div class="ending-stats" id="ending-stats"></div>
-      <button class="btn-start" onclick="location.reload()">Play Again</button>
+    <div class="container">
+      <h1 class="ending-title">THE END</h1>
+      <div id="ending-text" class="ending-text"></div>
+      <button onclick="location.reload()" class="btn-primary">Play Again</button>
     </div>
   </div>
 
