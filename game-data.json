@@ -1,0 +1,361 @@
+{
+  "game": {
+    "title": "Vanishing Point",
+    "version": "1.0",
+    "maxPlayers": 2,
+    "description": "A two-player cinematic text-based adventure. Every choice has consequences. Your decisions affect your partner."
+  },
+
+  "scenes": [
+    {
+      "id": 1,
+      "player": 1,
+      "description": "You peek out your window. The street is unnaturally quiet. Streetlights flicker. A black van idles across the street, engine humming low and menacing. Your phone vibrates — no message, just a blank notification. An uneasy feeling crawls up your spine. The van's headlights blink once, then twice. Do you stay inside where it's safe, or step outside to investigate?",
+      "choices": [
+        { "index": 1, "text": "Stay inside and lock the doors", "effects": { "nextSceneId": 2, "status": "safe_for_now" } },
+        { "index": 2, "text": "Step outside to investigate", "effects": { "nextSceneId": 3, "status": "kidnapped" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 2,
+      "player": 1,
+      "description": "You stayed inside. Smart choice — or so you thought. Suddenly, the front door BURSTS open with a deafening crash. Splinters of wood fly across the hallway. Two masked intruders rush in, shouting harsh commands you can't understand. Heavy boots pound through the hallways. One heads upstairs. The other sweeps the living room. You have seconds to decide: stay hidden behind the sofa or make a break for the stairs?",
+      "choices": [
+        { "index": 1, "text": "Stay hidden behind the sofa", "effects": { "nextSceneId": 4, "status": "hidden" } },
+        { "index": 2, "text": "Sprint upstairs to escape", "effects": { "nextSceneId": 5, "status": "chased" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 3,
+      "player": 1,
+      "description": "You step outside. Cold air hits your face. Before you can react, a gloved hand clamps over your mouth from behind! Pain shoots through your arm as you're slammed against the van. The door slides open. You're thrown inside onto cold metal floor. Darkness envelops you as the engine roars to life. Through muffled voices, you hear them arguing about 'the warehouse on Pier 9' and 'the other one still inside.' Your wrists are being tied. Fast.",
+      "choices": [
+        { "index": 1, "text": "Stay quiet and memorize everything", "effects": { "nextSceneId": 6, "info": "warehouse_location", "status": "kidnapped_calm" } },
+        { "index": 2, "text": "Struggle violently to free yourself", "effects": { "nextSceneId": 6, "status": "kidnapped_injured" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 4,
+      "player": 1,
+      "description": "You crouch behind the sofa, holding your breath. Heart hammering. Sweat drips down your temple. The intruders search methodically — opening cabinets, kicking doors. Suddenly, you hear footsteps upstairs. A crash. A scream. YOUR PARTNER'S SCREAM. They're being dragged down the stairs, shouting your name. The front door slams. Engine revs. Silence. You're alone. Do you risk sneaking out to follow them, or stay hidden and call for help?",
+      "choices": [
+        { "index": 1, "text": "Sneak out and follow the van", "effects": { "nextSceneId": 7, "status": "following" } },
+        { "index": 2, "text": "Stay hidden and call 911", "effects": { "nextSceneId": 8, "status": "safe_calling_police" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 5,
+      "player": 1,
+      "description": "You dash upstairs, legs burning. Footsteps THUNDER behind you. You slam a bedroom door and lock it. The door shudders from impacts. BOOM. BOOM. CRACK. You spot a window. Rain begins to fall outside, making the roof slick and treacherous. You can barricade and hope they give up, or risk climbing onto the roof. Thunder rumbles ominously.",
+      "choices": [
+        { "index": 1, "text": "Barricade the door with furniture", "effects": { "nextSceneId": 9, "status": "trapped_upstairs" } },
+        { "index": 2, "text": "Climb out onto the rain-slicked roof", "effects": { "nextSceneId": 10, "status": "roof_escape" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 6,
+      "player": 1,
+      "description": "The van speeds through dark streets. Your wrists burn against the rough rope. Through a crack in the door, you see city lights blur past. The kidnappers are arguing. 'The warehouse is ready.' 'What about the other one?' 'Already got them.' Your partner is also captured. You feel the van slow down, turning into what sounds like gravel. Warehouse district. This is it.",
+      "choices": [
+        { "index": 1, "text": "Pretend to be unconscious", "effects": { "nextSceneId": 11, "status": "playing_dead" } },
+        { "index": 2, "text": "Try to kick the door open", "effects": { "nextSceneId": 11, "status": "aggressive" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 7,
+      "player": 1,
+      "description": "You slip outside. The black van is pulling away, taillights glowing red in the rain. You run, keeping to the shadows. The van turns down an industrial road. You follow on foot, breath ragged, legs aching. It stops at a massive warehouse — corrugated metal walls, broken windows, no lights. You see them dragging your partner inside. You're outnumbered. Do you sneak inside or find another way?",
+      "choices": [
+        { "index": 1, "text": "Sneak through a broken side window", "effects": { "nextSceneId": 12, "status": "infiltrating" } },
+        { "index": 2, "text": "Circle around to find another entrance", "effects": { "nextSceneId": 13, "status": "scouting" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 8,
+      "player": 1,
+      "description": "You dial 911 with trembling fingers. 'Please help, my partner was just kidnapped!' The operator's voice is calm but urgent. 'Stay on the line. Officers are on the way. Do you know where they were taken?' You realize you don't. The van disappeared. You give your address. 'Stay inside. Lock all doors. We're sending units now.' You hear sirens approaching in the distance.",
+      "choices": [
+        { "index": 1, "text": "Wait for police inside", "effects": { "nextSceneId": 14, "status": "waiting_for_police" } },
+        { "index": 2, "text": "Go outside to flag them down", "effects": { "nextSceneId": 15, "status": "outside_waiting" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 9,
+      "player": 1,
+      "description": "You shove the dresser against the door. The hammering stops. Silence. Too quiet. Then you hear it — glass breaking downstairs. They're coming in another way. Footsteps on the stairs. Your barricade won't hold long. Rain hammers the window. You can wait it out or make a desperate climb.",
+      "choices": [
+        { "index": 1, "text": "Wait and hope they leave", "effects": { "nextSceneId": 16, "status": "trapped_waiting" } },
+        { "index": 2, "text": "Climb out the window NOW", "effects": { "nextSceneId": 10, "status": "desperate_escape" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 10,
+      "player": 1,
+      "description": "You climb onto the slippery roof. Rain pelts your face. Wind howls. You slide, catching yourself on the gutter. Below, you see the intruders' van. One guard stands outside smoking. You could shimmy to the neighbor's roof or try to jump to a tree. Both are risky in this storm.",
+      "choices": [
+        { "index": 1, "text": "Shimmy to the neighbor's roof", "effects": { "nextSceneId": 17, "status": "roof_crawling" } },
+        { "index": 2, "text": "Jump for the tree branch", "effects": { "nextSceneId": 18, "status": "jumping" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 11,
+      "player": 1,
+      "description": "The van door slides open. Rough hands grab you. You're dragged into a cavernous warehouse. The air smells of rust, mildew, and old oil. Water drips from somewhere high above. Chains rattle. Your eyes adjust to the dim light. There — across the room — YOUR PARTNER, tied to a chair, head slumped. Are they breathing? A masked figure approaches. 'Both of you. Finally.' What do you do?",
+      "choices": [
+        { "index": 1, "text": "Demand to know what they want", "effects": { "nextSceneId": 19, "status": "confrontational" } },
+        { "index": 2, "text": "Stay silent and observe", "effects": { "nextSceneId": 20, "status": "observing" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 12,
+      "player": 1,
+      "description": "You squeeze through the broken window. Glass shards cut your jacket. Inside, the warehouse is a maze of crates and shadows. You hear voices echoing. Footsteps on metal stairs. You creep forward, staying low. Then you see them — your partner, tied up, and three armed figures. One walks toward your partner with something in hand.",
+      "choices": [
+        { "index": 1, "text": "Create a distraction by knocking over crates", "effects": { "nextSceneId": 21, "status": "distraction_created" } },
+        { "index": 2, "text": "Sneak closer to free your partner", "effects": { "nextSceneId": 22, "status": "stealth_approach" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 13,
+      "player": 1,
+      "description": "You circle the warehouse. There — a loading dock with a slightly open roller door. You slip underneath. Darkness. You pull out your phone for light. Ahead, you hear muffled voices. Your partner's voice! They're arguing with the kidnappers. You need to act fast.",
+      "choices": [
+        { "index": 1, "text": "Rush in to save them", "effects": { "nextSceneId": 23, "status": "rushing_in" } },
+        { "index": 2, "text": "Look for a weapon first", "effects": { "nextSceneId": 24, "status": "armed" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 14,
+      "player": 1,
+      "description": "Police arrive within minutes. Blue lights flood your street. Officers rush inside. 'Are you hurt?' You explain everything. They radio for backup. 'We'll find them. We need you to come to the station to give a statement.' You ride in the squad car, watching the city pass by, wondering if your partner is still alive.",
+      "choices": [
+        { "index": 1, "text": "Go to the station", "effects": { "nextSceneId": 25, "status": "police_station" } },
+        { "index": 2, "text": "Demand to help search for them", "effects": { "nextSceneId": 26, "status": "joining_search" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 15,
+      "player": 1,
+      "description": "You run outside as police cars screech to a halt. 'They took my partner!' you shout. Officers pour out. 'Which way?' You point down the street. 'Black van. That way.' They radio it in. A detective approaches. 'We'll find them. But I need you to tell me everything you remember. Any details could save their life.'",
+      "choices": [
+        { "index": 1, "text": "Describe everything you remember", "effects": { "nextSceneId": 27, "status": "helping_police" } },
+        { "index": 2, "text": "Ask to join the search", "effects": { "nextSceneId": 26, "status": "joining_search" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 16,
+      "player": 1,
+      "description": "The door splinters. They're in. You back against the wall. The masked figure grabs you. 'Should've run when you had the chance.' Everything goes black as something hits the back of your head. When you wake, you're in the van, wrists bound, heading toward an unknown destination. Your head throbs.",
+      "choices": [
+        { "index": 1, "text": "Stay still and wait", "effects": { "nextSceneId": 11, "status": "captured_passive" } },
+        { "index": 2, "text": "Work on the ropes", "effects": { "nextSceneId": 11, "status": "trying_to_escape" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 17,
+      "player": 1,
+      "description": "You inch across the wet roof. Your foot slips. You slide — then catch yourself on the gutter. It groans under your weight. You pull yourself up onto the neighbor's roof. Below, you hear the intruders leaving your house. You made it. For now. You climb down their drainpipe and drop into the alley.",
+      "choices": [
+        { "index": 1, "text": "Run to the police station", "effects": { "nextSceneId": 28, "status": "escaped_going_to_police" } },
+        { "index": 2, "text": "Follow the van that took your partner", "effects": { "nextSceneId": 7, "status": "following" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 18,
+      "player": 1,
+      "description": "You leap. Your hands catch the branch. It cracks. SNAP. You fall — but land in bushes. Pain shoots through your ankle. You hear shouts from the house. 'Someone's outside!' You limp away into the night, rain washing away your tracks.",
+      "choices": [
+        { "index": 1, "text": "Hide in nearby bushes", "effects": { "nextSceneId": 29, "status": "hiding_injured" } },
+        { "index": 2, "text": "Limp toward the main road for help", "effects": { "nextSceneId": 30, "status": "seeking_help_injured" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 19,
+      "player": 1,
+      "description": "'What do you want from us?!' you shout. The figure laughs coldly. 'You're leverage. Your families will pay. Or you'll disappear like the others.' Your blood runs cold. The others? How many people have they taken? Your partner stirs, lifting their head. They see you. Hope flickers in their eyes.",
+      "choices": [
+        { "index": 1, "text": "Try to reason with them", "effects": { "nextSceneId": 31, "status": "negotiating" } },
+        { "index": 2, "text": "Lunge at the nearest captor", "effects": { "nextSceneId": 32, "status": "fighting" } }
+      ],
+      "visibility": ["player1"]
+    },
+    {
+      "id": 20,
+      "player": 1,
+      "description": "You stay silent. Watching. Learning. There are three of them. One paces near the door. One checks a laptop — probably monitoring cameras. The third stands guard over your partner. You notice a crowbar leaning against a crate. If you could just reach it...",
+      "choices": [
+        { "index": 1, "text": "Wait for an opening", "effects": { "nextSceneId": 33, "status": "patient" } },
+        { "index": 2, "text": "Slowly work on your ropes", "effects": { "nextSceneId": 34, "status": "freeing_self" } }
+      ],
+      "visibility": ["player1"]
+    },
+
+    {
+      "id": 50,
+      "player": 2,
+      "description": "You hear glass SHATTER downstairs. Your heart leaps into your throat. Heavy footsteps. Multiple people. Shouting. They're inside your house. You have seconds to decide. Do you hide in the bedroom closet and hope they don't find you, or do you run through the back door while you still can?",
+      "choices": [
+        { "index": 1, "text": "Hide in the bedroom closet", "effects": { "nextSceneId": 51, "status": "hiding" } },
+        { "index": 2, "text": "Run through the back door", "effects": { "nextSceneId": 52, "status": "running" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 51,
+      "player": 2,
+      "description": "You slide into the closet, pulling the door shut. Darkness. You press against the back wall, trying to control your breathing. Footsteps approach your room. The door creaks open. A flashlight beam sweeps across the floor. It stops. Right at the closet door. The handle turns. Do you stay perfectly still or throw something to create a distraction?",
+      "choices": [
+        { "index": 1, "text": "Stay perfectly still and pray", "effects": { "nextSceneId": 53, "status": "hiding_still" } },
+        { "index": 2, "text": "Throw a shoe to distract them", "effects": { "nextSceneId": 54, "status": "detected" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 52,
+      "player": 2,
+      "description": "You burst through the back door into the cold night. Rain soaks you instantly. You run. Behind you, shouting: 'There! In the yard!' Footsteps chase you. Sirens wail in the distance — but are they coming here? You reach the street. A car's headlights blind you. Do you hide in the shadows between houses or sprint toward the main road hoping someone will help?",
+      "choices": [
+        { "index": 1, "text": "Hide in the shadows", "effects": { "nextSceneId": 55, "status": "hiding_outside" } },
+        { "index": 2, "text": "Run toward the main road", "effects": { "nextSceneId": 56, "status": "running_for_help" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 53,
+      "player": 2,
+      "description": "You hold your breath. The closet door opens. The beam of light sweeps over your shoes. Then stops. Silence. The door closes. Footsteps recede. You wait. Minutes feel like hours. Then you hear it — a van engine starting outside. They're leaving. But where's your partner? You risk peeking out the window and see them being dragged into the van.",
+      "choices": [
+        { "index": 1, "text": "Follow the van quietly", "effects": { "nextSceneId": 57, "status": "following_partner" } },
+        { "index": 2, "text": "Call the police immediately", "effects": { "nextSceneId": 58, "status": "calling_police" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 54,
+      "player": 2,
+      "description": "You grab a shoe and hurl it across the room. THUD. The intruder spins toward the sound. The closet door rips open. 'Found you!' Rough hands drag you out. You struggle but there are two of them now. They zip-tie your wrists. 'To the van. Now.' You're being kidnapped.",
+      "choices": [
+        { "index": 1, "text": "Go quietly and observe", "effects": { "nextSceneId": 59, "status": "kidnapped_observing" } },
+        { "index": 2, "text": "Fight with everything you have", "effects": { "nextSceneId": 60, "status": "kidnapped_fighting" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 55,
+      "player": 2,
+      "description": "You duck between two houses, pressing against the cold brick wall. The pursuers run past. You wait. Rain drips from the roof. You're soaked and shivering. In the distance, the black van idles at your house. You see them loading your partner inside. The van door slams shut. They're taking them. What do you do?",
+      "choices": [
+        { "index": 1, "text": "Follow the van on foot", "effects": { "nextSceneId": 57, "status": "following_partner" } },
+        { "index": 2, "text": "Find a phone and call 911", "effects": { "nextSceneId": 58, "status": "calling_police" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 56,
+      "player": 2,
+      "description": "You sprint toward the main road. Your lungs burn. Behind you, the footsteps are getting closer. CLOSER. A hand grabs your shoulder. You spin, fists up. It's not the kidnappers — it's a neighbor! 'What's happening?!' You gasp out: 'Call 911! My partner's being kidnapped!' They pull out their phone. But is it too late?",
+      "choices": [
+        { "index": 1, "text": "Wait with the neighbor for police", "effects": { "nextSceneId": 61, "status": "safe_with_neighbor" } },
+        { "index": 2, "text": "Run back to try to save your partner", "effects": { "nextSceneId": 62, "status": "heroic_return" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 57,
+      "player": 2,
+      "description": "You follow the van through the rain-slicked streets, keeping to the shadows. It turns into an industrial district. Warehouses loom like giants in the darkness. The van stops at Pier 9 — a massive corrugated metal building. You watch them drag your partner inside. You're alone, unarmed, outnumbered. But you can't abandon them.",
+      "choices": [
+        { "index": 1, "text": "Sneak inside through a side entrance", "effects": { "nextSceneId": 63, "status": "infiltrating_warehouse" } },
+        { "index": 2, "text": "Call police and give them the location", "effects": { "nextSceneId": 64, "status": "police_backup" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 58,
+      "player": 2,
+      "description": "'911, what's your emergency?' You explain breathlessly. The operator is calm but urgent. 'Where are you now?' You give your location. 'Officers are on the way. Can you describe the vehicle?' You remember: black van, no plates visible. 'Stay where you are. Don't try to follow them.' But every second counts...",
+      "choices": [
+        { "index": 1, "text": "Wait for police", "effects": { "nextSceneId": 65, "status": "waiting_for_police" } },
+        { "index": 2, "text": "Ignore advice and follow anyway", "effects": { "nextSceneId": 57, "status": "disobeying_police" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 59,
+      "player": 2,
+      "description": "You go quietly, memorizing every detail. License plate obscured with mud. Three captors. Van smells like gasoline. They blindfold you. The van drives for what feels like twenty minutes. You hear industrial sounds — forklifts, metal clanging. Warehouse district. When the blindfold comes off, you're face-to-face with your partner. Both of you captured.",
+      "choices": [
+        { "index": 1, "text": "Try to communicate with your partner", "effects": { "nextSceneId": 66, "status": "planning_together" } },
+        { "index": 2, "text": "Study the captors for weaknesses", "effects": { "nextSceneId": 67, "status": "analyzing_situation" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 60,
+      "player": 2,
+      "description": "You thrash violently. Your elbow connects with someone's jaw. 'Damn it!' They slam you against the van. Pain explodes in your ribs. 'Feisty one. Boss will enjoy breaking you.' They throw you inside. Your head hits metal. Everything spins. When you wake, you're at the warehouse, hands bound, your partner across from you looking terrified.",
+      "choices": [
+        { "index": 1, "text": "Apologize and try to look weak", "effects": { "nextSceneId": 68, "status": "playing_weak" } },
+        { "index": 2, "text": "Glare defiantly at the captors", "effects": { "nextSceneId": 69, "status": "defiant" } }
+      ],
+      "visibility": ["player2"]
+    },
+    {
+      "id": 100,
+      "player": 1,
+      "description": "ENDING: ESCAPED! You and your partner make it out together. Bruised, terrified, but alive. Police arrive as you stumble into the street. The kidnappers scatter. Some are caught. Some escape into the night. You survived Vanishing Point. But the nightmares will linger.",
+      "choices": [],
+      "endings": ["escaped_together"],
+      "visibility": ["player1", "player2"]
+    },
+    {
+      "id": 101,
+      "player": 1,
+      "description": "ENDING: RESCUED! Police storm the warehouse. Gunfire erupts. You and your partner are pulled to safety by SWAT officers. The kidnappers are arrested. You're taken to the hospital. Reporters swarm outside. You're heroes. You're survivors. You're free.",
+      "choices": [],
+      "endings": ["rescued_by_police"],
+      "visibility": ["player1", "player2"]
+    },
+    {
+      "id": 102,
+      "player": 1,
+      "description": "ENDING: CAPTURED. The warehouse door slams shut. Darkness. Your partner's hand finds yours in the blackness. 'We'll get out of this,' they whisper. But deep down, you both know: vanishing point has been reached. Some disappearances are permanent.",
+      "choices": [],
+      "endings": ["captured_forever"],
+      "visibility": ["player1", "player2"]
+    },
+    {
+      "id": 103,
+      "player": 2,
+      "description": "ENDING: BITTERSWEET. You escaped, but your partner didn't. Police find their abandoned jacket by the river. No body. No trace. Just questions. You spend years wondering: are they out there somewhere? Or did they truly vanish? The point of no return was crossed. And you'll never know which side they ended up on.",
+      "choices": [],
+      "endings": ["one_escaped_one_lost"],
+      "visibility": ["player1", "player2"]
+    }
+  ],
+
+  "endings": [
+    { "id": 100, "name": "escaped_together", "text": "Both players escaped alive!" },
+    { "id": 101, "name": "rescued_by_police", "text": "Police rescued both players!" },
+    { "id": 102, "name": "captured_forever", "text": "Both players were captured..." },
+    { "id": 103, "name": "one_escaped_one_lost", "text": "One escaped, one vanished forever..." }
+  ]
+}
