@@ -3,29 +3,58 @@
 // ===============================================
 
 let ws = null;
-let gameData = null;
+let gameConfig = null;
+let chapters = {}; // Store all chapters
 let playerNumber = null;
 let playerName = null;
 let currentSceneId = null;
+let currentChapter = 1;
 let isReady = false;
 
 // ===============================================
 // INIT
 // ===============================================
 async function init() {
-  await loadGameData();
+  await loadGameConfig();
+  await loadChapter(1); // Load first chapter
+  await loadChapter(2); // Preload chapter 2
   setupListeners();
 }
 
-async function loadGameData() {
+async function loadGameConfig() {
   try {
-    const response = await fetch('/game-data.json');
-    gameData = await response.json();
-    console.log('✅ Game data loaded');
+    const response = await fetch('/game-config.json');
+    gameConfig = await response.json();
+    console.log('✅ Game config loaded');
   } catch (error) {
-    console.error('❌ Failed to load game data:', error);
-    showError('Failed to load game data');
+    console.error('❌ Failed to load game config:', error);
   }
+}
+
+async function loadChapter(chapterNum) {
+  if (chapters[chapterNum]) {
+    console.log(`✅ Chapter ${chapterNum} already loaded`);
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/chapters/chapter${chapterNum}.json`);
+    const chapterData = await response.json();
+    chapters[chapterNum] = chapterData;
+    console.log(`✅ Chapter ${chapterNum} loaded: ${chapterData.title}`);
+  } catch (error) {
+    console.error(`❌ Failed to load chapter ${chapterNum}:`, error);
+    showError(`Failed to load chapter ${chapterNum}`);
+  }
+}
+
+function getScene(sceneId) {
+  // Search all loaded chapters for the scene
+  for (let chapterNum in chapters) {
+    const scene = chapters[chapterNum].scenes.find(s => s.id === sceneId);
+    if (scene) return scene;
+  }
+  return null;
 }
 
 function setupListeners() {
@@ -192,10 +221,20 @@ function handleGameStart() {
 // ===============================================
 // LOAD SCENE
 // ===============================================
-function loadScene(sceneId) {
+async function loadScene(sceneId) {
   currentSceneId = sceneId;
   
-  const scene = gameData.scenes.find(s => s.id === sceneId);
+  let scene = getScene(sceneId);
+  
+  // If scene not found, try loading next chapter
+  if (!scene) {
+    const nextChapter = currentChapter + 1;
+    if (nextChapter <= 3) {
+      await loadChapter(nextChapter);
+      currentChapter = nextChapter;
+      scene = getScene(sceneId);
+    }
+  }
   
   if (!scene) {
     console.error('❌ Scene not found:', sceneId);
@@ -278,6 +317,15 @@ function showEnding(scene) {
   document.getElementById('ending-screen').classList.remove('hidden');
   
   document.getElementById('ending-text').textContent = scene.description;
+  
+  // Find ending info from config
+  if (scene.endings && scene.endings.length > 0 && gameConfig) {
+    const endingName = scene.endings[0];
+    const ending = gameConfig.endings.find(e => e.name === endingName);
+    if (ending) {
+      document.getElementById('ending-title').textContent = ending.text.toUpperCase();
+    }
+  }
   
   console.log('🎬 Game ended');
 }
