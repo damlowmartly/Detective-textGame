@@ -1,0 +1,96 @@
+{
+  "chapter": 2,
+  "title": "The Warehouse",
+  "scenes": [
+    {
+      "id": 11,
+      "player": 1,
+      "description": "The van door slides open. Rough hands grab you. You're dragged into a cavernous warehouse. The air smells of rust, mildew, and old oil. Water drips from somewhere high above. Chains rattle. Your eyes adjust to the dim light. There — across the room — YOUR PARTNER, tied to a chair, head slumped. Are they breathing? A masked figure approaches. 'Both of you. Finally.' What do you do?",
+      "choices": [
+        { "index": 1, "text": "Demand to know what they want", "effects": { "nextSceneId": 19, "nextChapter": 2, "status": "confrontational" } },
+        { "index": 2, "text": "Stay silent and observe", "effects": { "nextSceneId": 20, "nextChapter": 2, "status": "observing" } }
+      ]
+    },
+    {
+      "id": 12,
+      "player": 1,
+      "description": "You squeeze through the broken window. Glass shards cut your jacket. Inside, the warehouse is a maze of crates and shadows. You hear voices echoing. Footsteps on metal stairs. You creep forward, staying low. Then you see them — your partner, tied up, and three armed figures. One walks toward your partner with something in hand.",
+      "choices": [
+        { "index": 1, "text": "Create a distraction by knocking over crates", "effects": { "nextSceneId": 21, "nextChapter": 2, "status": "distraction_created" } },
+        { "index": 2, "text": "Sneak closer to free your partner", "effects": { "nextSceneId": 22, "nextChapter": 2, "status": "stealth_approach" } }
+      ]
+    },
+    {
+      "id": 19,
+      "player": 1,
+      "description": "'What do you want from us?!' you shout. The figure laughs coldly. 'You're leverage. Your families will pay. Or you'll disappear like the others.' Your blood runs cold. The others? How many people have they taken? Your partner stirs, lifting their head. They see you. Hope flickers in their eyes.",
+      "choices": [
+        { "index": 1, "text": "Try to reason with them", "effects": { "nextSceneId": 31, "nextChapter": 2, "status": "negotiating" } },
+        { "index": 2, "text": "Lunge at the nearest captor", "effects": { "nextSceneId": 32, "nextChapter": 2, "status": "fighting" } }
+      ]
+    },
+    {
+      "id": 20,
+      "player": 1,
+      "description": "You stay silent. Watching. Learning. There are three of them. One paces near the door. One checks a laptop — probably monitoring cameras. The third stands guard over your partner. You notice a crowbar leaning against a crate. If you could just reach it...",
+      "choices": [
+        { "index": 1, "text": "Wait for an opening", "effects": { "nextSceneId": 33, "nextChapter": 3, "status": "patient" } },
+        { "index": 2, "text": "Slowly work on your ropes", "effects": { "nextSceneId": 34, "nextChapter": 3, "status": "freeing_self" } }
+      ]
+    },
+    {
+      "id": 50,
+      "player": 2,
+      "description": "You hear glass SHATTER downstairs. Your heart leaps into your throat. Heavy footsteps. Multiple people. Shouting. They're inside your house. You have seconds to decide. Do you hide in the bedroom closet and hope they don't find you, or do you run through the back door while you still can?",
+      "choices": [
+        { "index": 1, "text": "Hide in the bedroom closet", "effects": { "nextSceneId": 51, "nextChapter": 2, "status": "hiding" } },
+        { "index": 2, "text": "Run through the back door", "effects": { "nextSceneId": 52, "nextChapter": 2, "status": "running" } }
+      ]
+    },
+    {
+      "id": 51,
+      "player": 2,
+      "description": "You slide into the closet, pulling the door shut. Darkness. You press against the back wall, trying to control your breathing. Footsteps approach your room. The door creaks open. A flashlight beam sweeps across the floor. It stops. Right at the closet door. The handle turns. Do you stay perfectly still or throw something to create a distraction?",
+      "choices": [
+        { "index": 1, "text": "Stay perfectly still and pray", "effects": { "nextSceneId": 53, "nextChapter": 2, "status": "hiding_still" } },
+        { "index": 2, "text": "Throw a shoe to distract them", "effects": { "nextSceneId": 54, "nextChapter": 2, "status": "detected" } }
+      ]
+    },
+    {
+      "id": 52,
+      "player": 2,
+      "description": "You burst through the back door into the cold night. Rain soaks you instantly. You run. Behind you, shouting: 'There! In the yard!' Footsteps chase you. Sirens wail in the distance — but are they coming here? You reach the street. A car's headlights blind you. Do you hide in the shadows between houses or sprint toward the main road hoping someone will help?",
+      "choices": [
+        { "index": 1, "text": "Hide in the shadows", "effects": { "nextSceneId": 55, "nextChapter": 2, "status": "hiding_outside" } },
+        { "index": 2, "text": "Run toward the main road", "effects": { "nextSceneId": 56, "nextChapter": 2, "status": "running_for_help" } }
+      ]
+    },
+    {
+      "id": 53,
+      "player": 2,
+      "description": "You hold your breath. The closet door opens. The beam of light sweeps over your shoes. Then stops. Silence. The door closes. Footsteps recede. You wait. Minutes feel like hours. Then you hear it — a van engine starting outside. They're leaving. But where's your partner? You risk peeking out the window and see them being dragged into the van.",
+      "choices": [
+        { "index": 1, "text": "Follow the van quietly", "effects": { "nextSceneId": 57, "nextChapter": 2, "status": "following_partner" } },
+        { "index": 2, "text": "Call the police immediately", "effects": { "nextSceneId": 58, "nextChapter": 2, "status": "calling_police" } }
+      ]
+    },
+    {
+      "id": 54,
+      "player": 2,
+      "description": "You grab a shoe and hurl it across the room. THUD. The intruder spins toward the sound. The closet door rips open. 'Found you!' Rough hands drag you out. You struggle but there are two of them now. They zip-tie your wrists. 'To the van. Now.' You're being kidnapped.",
+      "choices": [
+        { "index": 1, "text": "Go quietly and observe", "effects": { "nextSceneId": 59, "nextChapter": 2, "status": "kidnapped_observing" } },
+        { "index": 2, "text": "Fight with everything you have", "effects": { "nextSceneId": 60, "nextChapter": 2, "status": "kidnapped_fighting" } }
+      ]
+    },
+    {
+      "id": 59,
+      "player": 2,
+      "description": "You go quietly, memorizing every detail. License plate obscured with mud. Three captors. Van smells like gasoline. They blindfold you. The van drives for what feels like twenty minutes. You hear industrial sounds — forklifts, metal clanging. Warehouse district. When the blindfold comes off, you're face-to-face with your partner. Both of you captured.",
+      "choices": [
+        { "index": 1, "text": "Try to communicate with your partner", "effects": { "nextSceneId": 66, "nextChapter": 3, "status": "planning_together" } },
+        { "index": 2, "text": "Study the captors for weaknesses", "effects": { "nextSceneId": 67, "nextChapter": 3, "status": "analyzing_situation" } }
+      ]
+    }
+  ]
+}
