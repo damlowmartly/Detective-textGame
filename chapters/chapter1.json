@@ -1,0 +1,96 @@
+{
+  "chapter": 1,
+  "title": "Home Invasion",
+  "scenes": [
+    {
+      "id": 1,
+      "player": 1,
+      "description": "You peek out your window. The street is unnaturally quiet. Streetlights flicker. A black van idles across the street, engine humming low and menacing. Your phone vibrates — no message, just a blank notification. An uneasy feeling crawls up your spine. The van's headlights blink once, then twice. Do you stay inside where it's safe, or step outside to investigate?",
+      "choices": [
+        { "index": 1, "text": "Stay inside and lock the doors", "effects": { "nextSceneId": 2, "nextChapter": 1, "status": "safe_for_now" } },
+        { "index": 2, "text": "Step outside to investigate", "effects": { "nextSceneId": 3, "nextChapter": 1, "status": "kidnapped" } }
+      ]
+    },
+    {
+      "id": 2,
+      "player": 1,
+      "description": "You stayed inside. Smart choice — or so you thought. Suddenly, the front door BURSTS open with a deafening crash. Splinters of wood fly across the hallway. Two masked intruders rush in, shouting harsh commands you can't understand. Heavy boots pound through the hallways. One heads upstairs. The other sweeps the living room. You have seconds to decide: stay hidden behind the sofa or make a break for the stairs?",
+      "choices": [
+        { "index": 1, "text": "Stay hidden behind the sofa", "effects": { "nextSceneId": 4, "nextChapter": 1, "status": "hidden" } },
+        { "index": 2, "text": "Sprint upstairs to escape", "effects": { "nextSceneId": 5, "nextChapter": 1, "status": "chased" } }
+      ]
+    },
+    {
+      "id": 3,
+      "player": 1,
+      "description": "You step outside. Cold air hits your face. Before you can react, a gloved hand clamps over your mouth from behind! Pain shoots through your arm as you're slammed against the van. The door slides open. You're thrown inside onto cold metal floor. Darkness envelops you as the engine roars to life. Through muffled voices, you hear them arguing about 'the warehouse on Pier 9' and 'the other one still inside.' Your wrists are being tied. Fast.",
+      "choices": [
+        { "index": 1, "text": "Stay quiet and memorize everything", "effects": { "nextSceneId": 6, "nextChapter": 1, "status": "kidnapped_calm" } },
+        { "index": 2, "text": "Struggle violently to free yourself", "effects": { "nextSceneId": 6, "nextChapter": 1, "status": "kidnapped_injured" } }
+      ]
+    },
+    {
+      "id": 4,
+      "player": 1,
+      "description": "You crouch behind the sofa, holding your breath. Heart hammering. Sweat drips down your temple. The intruders search methodically — opening cabinets, kicking doors. Suddenly, you hear footsteps upstairs. A crash. A scream. YOUR PARTNER'S SCREAM. They're being dragged down the stairs, shouting your name. The front door slams. Engine revs. Silence. You're alone. Do you risk sneaking out to follow them, or stay hidden and call for help?",
+      "choices": [
+        { "index": 1, "text": "Sneak out and follow the van", "effects": { "nextSceneId": 7, "nextChapter": 1, "status": "following" } },
+        { "index": 2, "text": "Stay hidden and call 911", "effects": { "nextSceneId": 8, "nextChapter": 1, "status": "safe_calling_police" } }
+      ]
+    },
+    {
+      "id": 5,
+      "player": 1,
+      "description": "You dash upstairs, legs burning. Footsteps THUNDER behind you. You slam a bedroom door and lock it. The door shudders from impacts. BOOM. BOOM. CRACK. You spot a window. Rain begins to fall outside, making the roof slick and treacherous. You can barricade and hope they give up, or risk climbing onto the roof. Thunder rumbles ominously.",
+      "choices": [
+        { "index": 1, "text": "Barricade the door with furniture", "effects": { "nextSceneId": 9, "nextChapter": 1, "status": "trapped_upstairs" } },
+        { "index": 2, "text": "Climb out onto the rain-slicked roof", "effects": { "nextSceneId": 10, "nextChapter": 1, "status": "roof_escape" } }
+      ]
+    },
+    {
+      "id": 6,
+      "player": 1,
+      "description": "The van speeds through dark streets. Your wrists burn against the rough rope. Through a crack in the door, you see city lights blur past. The kidnappers are arguing. 'The warehouse is ready.' 'What about the other one?' 'Already got them.' Your partner is also captured. You feel the van slow down, turning into what sounds like gravel. Warehouse district. This is it.",
+      "choices": [
+        { "index": 1, "text": "Pretend to be unconscious", "effects": { "nextSceneId": 11, "nextChapter": 2, "status": "playing_dead" } },
+        { "index": 2, "text": "Try to kick the door open", "effects": { "nextSceneId": 11, "nextChapter": 2, "status": "aggressive" } }
+      ]
+    },
+    {
+      "id": 7,
+      "player": 1,
+      "description": "You slip outside. The black van is pulling away, taillights glowing red in the rain. You run, keeping to the shadows. The van turns down an industrial road. You follow on foot, breath ragged, legs aching. It stops at a massive warehouse — corrugated metal walls, broken windows, no lights. You see them dragging your partner inside. You're outnumbered. Do you sneak inside or find another way?",
+      "choices": [
+        { "index": 1, "text": "Sneak through a broken side window", "effects": { "nextSceneId": 12, "nextChapter": 2, "status": "infiltrating" } },
+        { "index": 2, "text": "Circle around to find another entrance", "effects": { "nextSceneId": 13, "nextChapter": 2, "status": "scouting" } }
+      ]
+    },
+    {
+      "id": 8,
+      "player": 1,
+      "description": "You dial 911 with trembling fingers. 'Please help, my partner was just kidnapped!' The operator's voice is calm but urgent. 'Stay on the line. Officers are on the way. Do you know where they were taken?' You realize you don't. The van disappeared. You give your address. 'Stay inside. Lock all doors. We're sending units now.' You hear sirens approaching in the distance.",
+      "choices": [
+        { "index": 1, "text": "Wait for police inside", "effects": { "nextSceneId": 14, "nextChapter": 2, "status": "waiting_for_police" } },
+        { "index": 2, "text": "Go outside to flag them down", "effects": { "nextSceneId": 15, "nextChapter": 2, "status": "outside_waiting" } }
+      ]
+    },
+    {
+      "id": 9,
+      "player": 1,
+      "description": "You shove the dresser against the door. The hammering stops. Silence. Too quiet. Then you hear it — glass breaking downstairs. They're coming in another way. Footsteps on the stairs. Your barricade won't hold long. Rain hammers the window. You can wait it out or make a desperate climb.",
+      "choices": [
+        { "index": 1, "text": "Wait and hope they leave", "effects": { "nextSceneId": 16, "nextChapter": 1, "status": "trapped_waiting" } },
+        { "index": 2, "text": "Climb out the window NOW", "effects": { "nextSceneId": 10, "nextChapter": 1, "status": "desperate_escape" } }
+      ]
+    },
+    {
+      "id": 10,
+      "player": 1,
+      "description": "You climb onto the slippery roof. Rain pelts your face. Wind howls. You slide, catching yourself on the gutter. Below, you see the intruders' van. One guard stands outside smoking. You could shimmy to the neighbor's roof or try to jump to a tree. Both are risky in this storm.",
+      "choices": [
+        { "index": 1, "text": "Shimmy to the neighbor's roof", "effects": { "nextSceneId": 17, "nextChapter": 1, "status": "roof_crawling" } },
+        { "index": 2, "text": "Jump for the tree branch", "effects": { "nextSceneId": 18, "nextChapter": 1, "status": "jumping" } }
+      ]
+    }
+  ]
+}
