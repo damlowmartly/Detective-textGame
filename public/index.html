@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Vanishing Point - 2 Player Adventure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <!-- LOBBY SCREEN -->
+  <div id="lobby-screen">
+    <div class="lobby-container">
+      <h1 class="game-title">⚫ VANISHING POINT</h1>
+      <p class="game-subtitle">A Two-Player Cinematic Adventure</p>
+      <p class="game-desc">Every choice has consequences. Your decisions affect your partner.</p>
+      
+      <div class="player-setup">
+        <div class="player-card">
+          <div class="player-header">
+            <span class="player-icon">👤</span>
+            <span>Player 1</span>
+          </div>
+          <input type="text" id="player1-name" placeholder="Enter your name" class="name-input">
+          <div class="player-status" id="player1-status">Waiting...</div>
+        </div>
+
+        <div class="vs-divider">VS</div>
+
+        <div class="player-card">
+          <div class="player-header">
+            <span class="player-icon">👤</span>
+            <span>Player 2</span>
+          </div>
+          <input type="text" id="player2-name" placeholder="Enter your name" class="name-input">
+          <div class="player-status" id="player2-status">Waiting...</div>
+        </div>
+      </div>
+
+      <button id="start-game-btn" class="btn-start" disabled>Start Game</button>
+      <div id="lobby-error" class="error-msg"></div>
+      
+      <div class="game-info">
+        <p>🎭 <strong>2 Players Required</strong></p>
+        <p>📖 Choice-driven narrative</p>
+        <p>⚡ Your choices affect each other</p>
+        <p>🎬 Multiple endings</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game-screen" class="hidden">
+    
+    <!-- Player Info Bar -->
+    <div class="player-info-bar">
+      <div class="info-left">
+        <span class="player-badge" id="your-player-badge">Player 1</span>
+        <span class="player-name-display" id="your-name-display"></span>
+      </div>
+      <div class="info-center">
+        <span class="story-progress" id="scene-counter">Scene 1</span>
+      </div>
+      <div class="info-right">
+        <span class="status-indicator" id="status-display"></span>
+      </div>
+    </div>
+
+    <!-- Story Display -->
+    <div class="story-container">
+      <div class="scene-content">
+        <div class="scene-description" id="scene-description">
+          <!-- Story text appears here -->
+        </div>
+      </div>
+
+      <!-- Choice Buttons -->
+      <div class="choices-container" id="choices-container">
+        <button class="choice-btn" id="choice-1">
+          <span class="choice-number">1</span>
+          <span class="choice-text" id="choice-1-text"></span>
+        </button>
+        <button class="choice-btn" id="choice-2">
+          <span class="choice-number">2</span>
+          <span class="choice-text" id="choice-2-text"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Partner Activity Feed -->
+    <div class="activity-feed">
+      <div class="feed-header">Partner Activity</div>
+      <div class="feed-content" id="activity-feed">
+        <div class="activity-item">Waiting for partner's choice...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ENDING SCREEN -->
+  <div id="ending-screen" class="hidden">
+    <div class="ending-container">
+      <h1 class="ending-title" id="ending-title">THE END</h1>
+      <div class="ending-description" id="ending-description"></div>
+      <div class="ending-stats" id="ending-stats"></div>
+      <button class="btn-start" onclick="location.reload()">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
