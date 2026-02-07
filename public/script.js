@@ -1,252 +1,262 @@
 // ===============================================
-// VANISHING POINT - CLIENT SCRIPT
+// VANISHING POINT - CLIENT (REAL MULTIPLAYER)
 // ===============================================
 
+let ws = null;
 let gameData = null;
-let currentScene = null;
 let playerNumber = null;
 let playerName = null;
-let partnerName = null;
-let ws = null;
-let sceneHistory = [];
+let currentSceneId = null;
+let isReady = false;
 
 // ===============================================
 // INIT
 // ===============================================
 async function init() {
   await loadGameData();
-  setupLobbyListeners();
+  setupListeners();
 }
 
 async function loadGameData() {
   try {
     const response = await fetch('/game-data.json');
     gameData = await response.json();
-    console.log('Game data loaded:', gameData);
+    console.log('✅ Game data loaded');
   } catch (error) {
-    console.error('Failed to load game data:', error);
-    showError('Failed to load game. Please refresh.');
+    console.error('❌ Failed to load game data:', error);
+    showError('Failed to load game data');
   }
 }
 
-// ===============================================
-// LOBBY
-// ===============================================
-function setupLobbyListeners() {
-  const p1Input = document.getElementById('player1-name');
-  const p2Input = document.getElementById('player2-name');
-  const startBtn = document.getElementById('start-game-btn');
-  
-  p1Input.addEventListener('input', checkReadyState);
-  p2Input.addEventListener('input', checkReadyState);
-  
-  startBtn.addEventListener('click', startGame);
-}
-
-function checkReadyState() {
-  const p1 = document.getElementById('player1-name').value.trim();
-  const p2 = document.getElementById('player2-name').value.trim();
-  const startBtn = document.getElementById('start-game-btn');
-  
-  if (p1 && p2) {
-    startBtn.disabled = false;
-    document.getElementById('player1-status').textContent = '✓ Ready';
-    document.getElementById('player1-status').classList.add('ready');
-    document.getElementById('player2-status').textContent = '✓ Ready';
-    document.getElementById('player2-status').classList.add('ready');
-  } else {
-    startBtn.disabled = true;
-  }
-}
-
-function startGame() {
-  const p1Name = document.getElementById('player1-name').value.trim();
-  const p2Name = document.getElementById('player2-name').value.trim();
-  
-  if (!p1Name || !p2Name) {
-    showError('Both players must enter names');
-    return;
-  }
-  
-  // Determine which player this browser is
-  playerNumber = Math.random() > 0.5 ? 1 : 2;
-  playerName = playerNumber === 1 ? p1Name : p2Name;
-  partnerName = playerNumber === 1 ? p2Name : p1Name;
-  
-  initWebSocket();
+function setupListeners() {
+  document.getElementById('join-btn').addEventListener('click', joinRoom);
+  document.getElementById('ready-btn').addEventListener('click', setReady);
+  document.getElementById('start-btn').addEventListener('click', startGame);
 }
 
 // ===============================================
-// WEBSOCKET
+// WEBSOCKET CONNECTION
 // ===============================================
-function initWebSocket() {
+function connectWebSocket() {
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   ws = new WebSocket(`${protocol}//${window.location.host}`);
   
   ws.onopen = () => {
-    console.log('Connected to game server');
-    sendWS({
-      type: 'playerJoin',
-      playerNumber: playerNumber,
-      playerName: playerName,
-      partnerName: partnerName
-    });
+    console.log('✅ Connected to server');
   };
   
   ws.onmessage = (event) => {
     const data = JSON.parse(event.data);
+    console.log('📨 Received:', data.type);
     handleServerMessage(data);
   };
   
+  ws.onerror = (error) => {
+    console.error('❌ WebSocket error:', error);
+    showError('Connection error');
+  };
+  
   ws.onclose = () => {
-    console.log('Disconnected');
-    setTimeout(initWebSocket, 3000);
+    console.log('📴 Disconnected');
+    showError('Disconnected from server');
   };
 }
 
 function sendWS(data) {
   if (ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify(data));
+    console.log('📤 Sent:', data.type);
   }
 }
 
+// ===============================================
+// HANDLE SERVER MESSAGES
+// ===============================================
 function handleServerMessage(data) {
   switch (data.type) {
-    case 'gameStart':
-      showGameScreen();
-      loadScene(1); // Start at scene 1
+    case 'joinedRoom':
+      handleJoinedRoom(data);
       break;
-    case 'sceneUpdate':
-      if (data.playerNumber === playerNumber) {
-        loadScene(data.sceneId);
-      }
+    case 'roomUpdate':
+      handleRoomUpdate(data);
+      break;
+    case 'gameStart':
+      handleGameStart();
+      break;
+    case 'loadScene':
+      loadScene(data.sceneId);
       break;
     case 'partnerChoice':
-      addActivityFeed(`${partnerName} made a choice`);
+      addActivity(`Partner: ${data.choice}`);
       break;
-    case 'gameOver':
-      showEnding(data.endingId);
+    case 'error':
+      showError(data.message);
       break;
   }
 }
 
 // ===============================================
-// GAME SCREEN
+// JOIN ROOM
 // ===============================================
-function showGameScreen() {
+function joinRoom() {
+  const name = document.getElementById('player-name').value.trim();
+  
+  if (!name) {
+    showError('Please enter your name');
+    return;
+  }
+  
+  playerName = name;
+  connectWebSocket();
+  
+  // Wait for connection then join
+  setTimeout(() => {
+    sendWS({
+      type: 'joinRoom',
+      roomCode: 'default',
+      name: name
+    });
+  }, 500);
+}
+
+function handleJoinedRoom(data) {
+  playerNumber = data.playerNumber;
+  
+  document.getElementById('lobby-screen').querySelector('.lobby-card').classList.add('hidden');
+  document.getElementById('room-status').classList.remove('hidden');
+  document.getElementById('ready-btn').disabled = false;
+  
+  document.getElementById('room-code').textContent = data.roomCode;
+  
+  console.log(`✅ Joined as Player ${playerNumber}`);
+}
+
+function handleRoomUpdate(data) {
+  // Update Player 1
+  if (data.player1) {
+    document.getElementById('player1-name').textContent = data.player1.name;
+    document.getElementById('player1-status').textContent = data.player1.ready ? '✅ Ready' : '';
+    
+    const p1Slot = document.querySelector('.players-grid .player-slot:first-child');
+    if (data.player1.ready) {
+      p1Slot.classList.add('ready');
+    }
+  }
+  
+  // Update Player 2
+  if (data.player2) {
+    document.getElementById('player2-name').textContent = data.player2.name;
+    document.getElementById('player2-status').textContent = data.player2.ready ? '✅ Ready' : '';
+    
+    const p2Slot = document.querySelector('.players-grid .player-slot:last-child');
+    if (data.player2.ready) {
+      p2Slot.classList.add('ready');
+    }
+  }
+  
+  // Show start button if both ready
+  if (data.player1 && data.player2 && data.player1.ready && data.player2.ready) {
+    document.getElementById('start-btn').classList.remove('hidden');
+  }
+}
+
+function setReady() {
+  isReady = true;
+  document.getElementById('ready-btn').disabled = true;
+  document.getElementById('ready-btn').textContent = '✅ Ready!';
+  
+  sendWS({
+    type: 'playerReady'
+  });
+}
+
+function startGame() {
+  sendWS({
+    type: 'startGame'
+  });
+}
+
+// ===============================================
+// GAME START
+// ===============================================
+function handleGameStart() {
   document.getElementById('lobby-screen').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
   
-  document.getElementById('your-player-badge').textContent = `Player ${playerNumber}`;
-  document.getElementById('your-name-display').textContent = playerName;
+  document.getElementById('player-badge').textContent = `Player ${playerNumber}`;
+  document.getElementById('your-name').textContent = playerName;
+  
+  console.log('🎮 Game started!');
 }
 
+// ===============================================
+// LOAD SCENE
+// ===============================================
 function loadScene(sceneId) {
+  currentSceneId = sceneId;
+  
   const scene = gameData.scenes.find(s => s.id === sceneId);
   
   if (!scene) {
-    console.error('Scene not found:', sceneId);
+    console.error('❌ Scene not found:', sceneId);
     return;
   }
   
-  // Check if scene is for this player
-  if (scene.player !== playerNumber) {
-    // Wait for partner's choice
-    showWaitingScreen();
-    return;
-  }
+  console.log(`📖 Loading scene ${sceneId}`);
   
-  currentScene = scene;
-  sceneHistory.push(sceneId);
-  
-  renderScene(scene);
-}
-
-function renderScene(scene) {
-  // Update scene counter
-  document.getElementById('scene-counter').textContent = `Scene ${sceneHistory.length}`;
-  
-  // Update status if available
-  if (scene.status) {
-    document.getElementById('status-display').textContent = scene.status.replace(/_/g, ' ').toUpperCase();
-  }
-  
-  // Render description
-  document.getElementById('scene-description').textContent = scene.description;
-  
-  // Check if this is an ending scene
+  // Check if ending
   if (scene.endings) {
-    showEnding(scene.id);
+    showEnding(scene);
     return;
   }
   
-  // Render choices
+  // Display scene
+  document.getElementById('scene-text').textContent = scene.description;
+  document.getElementById('scene-counter').textContent = `Scene ${sceneId}`;
+  
+  // Display choices
+  const choicesBox = document.getElementById('choices-box');
+  choicesBox.innerHTML = '';
+  
   if (scene.choices && scene.choices.length > 0) {
-    document.getElementById('choices-container').classList.remove('hidden');
-    
-    scene.choices.forEach((choice, index) => {
-      const btn = document.getElementById(`choice-${choice.index}`);
-      const text = document.getElementById(`choice-${choice.index}-text`);
-      
-      if (btn && text) {
-        btn.classList.remove('hidden');
-        text.textContent = choice.text;
-        btn.onclick = () => makeChoice(choice);
-      }
+    scene.choices.forEach(choice => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.innerHTML = `
+        <div class="choice-num">${choice.index}</div>
+        <div>${choice.text}</div>
+      `;
+      btn.onclick = () => makeChoice(choice);
+      choicesBox.appendChild(btn);
     });
-    
-    // Hide unused choice buttons
-    for (let i = 1; i <= 2; i++) {
-      if (!scene.choices.find(c => c.index === i)) {
-        document.getElementById(`choice-${i}`).classList.add('hidden');
-      }
-    }
-  } else {
-    document.getElementById('choices-container').classList.add('hidden');
   }
 }
 
 function makeChoice(choice) {
-  // Disable all choices
+  // Disable all buttons
   document.querySelectorAll('.choice-btn').forEach(btn => {
     btn.disabled = true;
+    btn.style.opacity = '0.5';
   });
   
-  addActivityFeed(`You chose: "${choice.text}"`);
+  addActivity(`You chose: ${choice.text}`);
   
-  // Send choice to server
   sendWS({
-    type: 'playerChoice',
-    playerNumber: playerNumber,
-    sceneId: currentScene.id,
+    type: 'makeChoice',
+    sceneId: currentSceneId,
     choiceIndex: choice.index,
-    effects: choice.effects
+    choiceText: choice.text,
+    nextSceneId: choice.effects.nextSceneId,
+    status: choice.effects.status
   });
   
-  // Load next scene
-  setTimeout(() => {
-    const nextSceneId = choice.effects.nextSceneId;
-    if (nextSceneId) {
-      loadScene(nextSceneId);
-    }
-    
-    // Re-enable choices
-    document.querySelectorAll('.choice-btn').forEach(btn => {
-      btn.disabled = false;
-    });
-  }, 1000);
-}
-
-function showWaitingScreen() {
-  document.getElementById('scene-description').textContent = 
-    `Waiting for ${partnerName} to make their choice...`;
-  document.getElementById('choices-container').classList.add('hidden');
+  console.log(`✅ Made choice: ${choice.text}`);
 }
 
 // ===============================================
 // ACTIVITY FEED
 // ===============================================
-function addActivityFeed(message) {
+function addActivity(message) {
   const feed = document.getElementById('activity-feed');
   const item = document.createElement('div');
   item.className = 'activity-item';
@@ -254,7 +264,7 @@ function addActivityFeed(message) {
   
   feed.insertBefore(item, feed.firstChild);
   
-  // Keep only last 5 items
+  // Keep only last 5
   while (feed.children.length > 5) {
     feed.removeChild(feed.lastChild);
   }
@@ -263,34 +273,19 @@ function addActivityFeed(message) {
 // ===============================================
 // ENDING
 // ===============================================
-function showEnding(sceneId) {
-  const scene = gameData.scenes.find(s => s.id === sceneId);
-  
-  if (!scene) return;
-  
+function showEnding(scene) {
   document.getElementById('game-screen').classList.add('hidden');
   document.getElementById('ending-screen').classList.remove('hidden');
   
-  document.getElementById('ending-title').textContent = 'THE END';
-  document.getElementById('ending-description').textContent = scene.description;
+  document.getElementById('ending-text').textContent = scene.description;
   
-  if (scene.endings && scene.endings.length > 0) {
-    const endingName = scene.endings[0];
-    const ending = gameData.endings.find(e => e.name === endingName);
-    if (ending) {
-      document.getElementById('ending-stats').innerHTML = `
-        <h3>${ending.text}</h3>
-        <p>Scenes visited: ${sceneHistory.length}</p>
-        <p>Your journey has reached its vanishing point.</p>
-      `;
-    }
-  }
+  console.log('🎬 Game ended');
 }
 
 function showError(message) {
-  document.getElementById('lobby-error').textContent = message;
+  document.getElementById('error-msg').textContent = message;
   setTimeout(() => {
-    document.getElementById('lobby-error').textContent = '';
+    document.getElementById('error-msg').textContent = '';
   }, 3000);
 }
 
